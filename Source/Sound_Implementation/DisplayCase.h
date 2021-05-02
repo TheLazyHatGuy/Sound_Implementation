@@ -7,6 +7,7 @@
 #include "DisplayCase.generated.h"
 
 class UBoxComponent;
+class ASound_ImplementationGameMode;
 
 UCLASS()
 class SOUND_IMPLEMENTATION_API ADisplayCase : public AActor
@@ -17,6 +18,9 @@ public:
 	// Sets default values for this actor's properties
 	ADisplayCase();
 
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -57,8 +61,6 @@ protected:
 
 	void TakeJewels();
 	
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+private:	
+	ASound_ImplementationGameMode* GameMode;
 };

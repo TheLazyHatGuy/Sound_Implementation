@@ -90,12 +90,6 @@ public:
 		TSubclassOf<UUserWidget> UI;
 
 	UUserWidget* UI_Ref;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		bool bIsAtCase;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		bool bCaseIsSmashed;
 
 protected:
 	

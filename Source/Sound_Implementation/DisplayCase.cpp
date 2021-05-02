@@ -5,8 +5,10 @@
 
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 #include "Sound_ImplementationCharacter.h"
+#include "Sound_ImplementationGameMode.h"
 
 // Sets default values
 ADisplayCase::ADisplayCase()
@@ -32,6 +34,8 @@ ADisplayCase::ADisplayCase()
 	SM_Jewellery_3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Jewellery 3"));
 
 	RootComponent = SM_DisplayCase;
+
+	GameMode = Cast<ASound_ImplementationGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 }
 
 // Called when the game starts or when spawned
@@ -57,9 +61,9 @@ void ADisplayCase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 	if(OtherActor->ActorHasTag("Player"))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Player in box"));
-		ASound_ImplementationCharacter* PlayerRef = Cast<ASound_ImplementationCharacter>(OtherActor);
 
-		PlayerRef->bIsAtCase = true;
+		GameMode->UI_Prompt = TEXT("Press E to Smash Glass");
+		GameMode->bShowPrompt = true;
 	}
 }
 
@@ -69,9 +73,8 @@ void ADisplayCase::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* Oth
 	if (OtherActor->ActorHasTag("Player"))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Player left box"));
-		ASound_ImplementationCharacter* PlayerRef = Cast<ASound_ImplementationCharacter>(OtherActor);
-
-		PlayerRef->bIsAtCase = false;
+		
+		GameMode->bShowPrompt = false;
 	}
 }
 

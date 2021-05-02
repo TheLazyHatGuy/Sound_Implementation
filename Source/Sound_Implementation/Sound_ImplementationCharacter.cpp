@@ -83,9 +83,6 @@ ASound_ImplementationCharacter::ASound_ImplementationCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
-
-	bIsAtCase = false;
-	bCaseIsSmashed = false;
 }
 
 void ASound_ImplementationCharacter::BeginPlay()
