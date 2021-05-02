@@ -6,6 +6,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
 
+#include "Sound_ImplementationCharacter.h"
+
 // Sets default values
 ADisplayCase::ADisplayCase()
 {
@@ -38,6 +40,7 @@ void ADisplayCase::BeginPlay()
 	Super::BeginPlay();
 
 	Box_Collision->OnComponentBeginOverlap.AddDynamic(this, &ADisplayCase::OnOverlapBegin);
+	Box_Collision->OnComponentEndOverlap.AddDynamic(this, &ADisplayCase::OnOverlapEnd);
 }
 
 // Called every frame
@@ -54,6 +57,21 @@ void ADisplayCase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 	if(OtherActor->ActorHasTag("Player"))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Player in box"));
+		ASound_ImplementationCharacter* PlayerRef = Cast<ASound_ImplementationCharacter>(OtherActor);
+
+		PlayerRef->bIsAtCase = true;
+	}
+}
+
+void ADisplayCase::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndexType)
+{
+	if (OtherActor->ActorHasTag("Player"))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player left box"));
+		ASound_ImplementationCharacter* PlayerRef = Cast<ASound_ImplementationCharacter>(OtherActor);
+
+		PlayerRef->bIsAtCase = false;
 	}
 }
 

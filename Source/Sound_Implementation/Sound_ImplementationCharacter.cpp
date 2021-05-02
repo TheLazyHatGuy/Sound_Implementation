@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "Blueprint/UserWidget.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -82,6 +83,9 @@ ASound_ImplementationCharacter::ASound_ImplementationCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	bIsAtCase = false;
+	bCaseIsSmashed = false;
 }
 
 void ASound_ImplementationCharacter::BeginPlay()
@@ -102,6 +106,12 @@ void ASound_ImplementationCharacter::BeginPlay()
 	{
 		VR_Gun->SetHiddenInGame(true, true);
 		Mesh1P->SetHiddenInGame(false, true);
+	}
+
+	if (UI != nullptr)
+	{
+		UI_Ref = CreateWidget(GetWorld(), UI);
+		UI_Ref->AddToViewport();
 	}
 }
 

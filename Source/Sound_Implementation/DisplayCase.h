@@ -49,6 +49,10 @@ protected:
 			class UPrimitiveComponent* OtherComp, int32 OtherBodyIndexType, bool bFromSweep,
 			const FHitResult& SweepResult);
 
+	UFUNCTION()
+		void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
+			class UPrimitiveComponent* OtherComp, int32 OtherBodyIndexType);
+
 	void Smash();
 
 	void TakeJewels();

@@ -86,6 +86,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint8 bUsingMotionControllers : 1;
 
+	UPROPERTY(EditAnywhere, Category = "UI HUD")
+		TSubclassOf<UUserWidget> UI;
+
+	UUserWidget* UI_Ref;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		bool bIsAtCase;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		bool bCaseIsSmashed;
+
 protected:
 	
 	/** Fires a projectile. */
