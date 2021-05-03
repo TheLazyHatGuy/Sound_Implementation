@@ -8,6 +8,7 @@
 
 class UBoxComponent;
 class ASound_ImplementationCharacter;
+class UFMODEvent;
 
 UCLASS()
 class SOUND_IMPLEMENTATION_API ADisplayCase : public AActor
@@ -20,6 +21,8 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void Smash();
 	
 protected:
 	// Called when the game starts or when spawned
@@ -48,6 +51,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		UBoxComponent* Box_Collision;
 
+	UPROPERTY(EditAnywhere)
+		UFMODEvent* Smash_Event;
+	
 	UFUNCTION()
 		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
 			class UPrimitiveComponent* OtherComp, int32 OtherBodyIndexType, bool bFromSweep,
@@ -56,8 +62,6 @@ protected:
 	UFUNCTION()
 		void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
 			class UPrimitiveComponent* OtherComp, int32 OtherBodyIndexType);
-
-	void Smash();
 
 	void TakeJewels();
 	

@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "Sound_ImplementationCharacter.h"
+
 #include "Sound_ImplementationProjectile.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
@@ -12,6 +13,8 @@
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 #include "Blueprint/UserWidget.h"
+
+#include "DisplayCase.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -146,6 +149,8 @@ void ASound_ImplementationCharacter::SetupPlayerInputComponent(class UInputCompo
 	PlayerInputComponent->BindAxis("TurnRate", this, &ASound_ImplementationCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ASound_ImplementationCharacter::LookUpAtRate);
+
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ASound_ImplementationCharacter::Interact);
 }
 
 void ASound_ImplementationCharacter::OnFire()
@@ -307,4 +312,16 @@ bool ASound_ImplementationCharacter::EnableTouchscreenMovement(class UInputCompo
 	}
 	
 	return false;
+}
+
+void ASound_ImplementationCharacter::Interact()
+{
+	if (Display_Case_Ref != nullptr)
+	{
+		Display_Case_Ref->Smash();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Display case null"));
+	}
 }

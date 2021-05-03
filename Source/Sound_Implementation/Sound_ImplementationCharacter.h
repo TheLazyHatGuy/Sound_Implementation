@@ -13,6 +13,7 @@ class UCameraComponent;
 class UMotionControllerComponent;
 class UAnimMontage;
 class USoundBase;
+class ADisplayCase;
 
 UCLASS(config=Game)
 class ASound_ImplementationCharacter : public ACharacter
@@ -97,6 +98,9 @@ public:
 
 	UUserWidget* UI_Ref;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		ADisplayCase* Display_Case_Ref;
+
 protected:
 	
 	/** Fires a projectile. */
@@ -135,6 +139,8 @@ protected:
 	void EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
 	void TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location);
 	TouchData	TouchItem;
+
+	void Interact();
 	
 protected:
 	// APawn interface

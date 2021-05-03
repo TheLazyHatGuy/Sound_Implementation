@@ -6,6 +6,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "FMODEvent.h"
+#include "FMODBlueprintStatics.h"
 
 #include "Sound_ImplementationCharacter.h"
 
@@ -66,6 +68,7 @@ void ADisplayCase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 
 		PlayerRef->UI_Prompt = FString(TEXT("Press E to smash glass"));
 		PlayerRef->bShowPrompt = true;
+		PlayerRef->Display_Case_Ref = this;
 	}
 }
 
@@ -76,11 +79,23 @@ void ADisplayCase::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* Oth
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Player left box"));
 		PlayerRef->bShowPrompt = false;
+		PlayerRef->Display_Case_Ref = nullptr;
 	}
 }
 
 void ADisplayCase::Smash()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Display case smash called"));
+	
+	
+	const FVector Translation = FVector(0.0f, 0.0f, 0.0f);
+	const FVector Scale = FVector(1.0f, 1.0f, 1.0f);
+	const FQuat Rotation = FQuat(0.0f, 0.0f, 0.0f, 0.0f);
+	// const FTransform Transform = FTransform(Rotation, Translation, Scale);
+	const FTransform Transform = this->GetTransform();;
+	
+	UFMODBlueprintStatics::PlayEventAtLocation(this, Smash_Event, 
+		Transform, true);
 }
 
 void ADisplayCase::TakeJewels()

@@ -12,5 +12,10 @@ public class Sound_Implementation : ModuleRules
         {
             "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "UMG"
 		});
+
+		PrivateDependencyModuleNames.AddRange(new string[]
+        {
+            "FMODStudio"
+		});
 	}
 }
