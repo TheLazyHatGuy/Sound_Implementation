@@ -35,6 +35,9 @@ ADisplayCase::ADisplayCase()
 	SM_Jewellery_3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Jewellery 3"));
 
 	RootComponent = SM_DisplayCase;
+
+	Smashed = false;
+	Jewels_Taken = false;
 }
 
 // Called when the game starts or when spawned
@@ -57,16 +60,16 @@ void ADisplayCase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndexType, 
 	bool bFromSweep, const FHitResult& SweepResult)
 {
-	if(OtherActor->ActorHasTag("Player"))
+	if(OtherActor->ActorHasTag("Player") && !Jewels_Taken)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Player in box"));
-
 		if (PlayerRef == nullptr)
-		{
 			PlayerRef = Cast<ASound_ImplementationCharacter>(OtherActor);
-		}
 
-		PlayerRef->UI_Prompt = FString(TEXT("Press E to smash glass"));
+		if(!Smashed)
+			PlayerRef->UI_Prompt = FString(TEXT("Press E to smash glass"));
+		else
+			PlayerRef->UI_Prompt = FString(TEXT("Press E to take jewels"));
+		
 		PlayerRef->bShowPrompt = true;
 		PlayerRef->Display_Case_Ref = this;
 	}
@@ -77,7 +80,6 @@ void ADisplayCase::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* Oth
 {
 	if (OtherActor->ActorHasTag("Player"))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Player left box"));
 		PlayerRef->bShowPrompt = false;
 		PlayerRef->Display_Case_Ref = nullptr;
 	}
@@ -85,7 +87,11 @@ void ADisplayCase::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* Oth
 
 void ADisplayCase::Smash()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Display case smash called"));
+	if(Smashed && !Jewels_Taken)
+	{
+		TakeJewels();
+		return;
+	}
 	
 	
 	const FVector Translation = FVector(0.0f, 0.0f, 0.0f);
@@ -100,8 +106,23 @@ void ADisplayCase::Smash()
 
 	SM_DisplayCase_Glass->SetHiddenInGame(true, false);
 	SM_DisplayCase_Glass_Broken->SetHiddenInGame(false, false);
+
+	Smashed = true;
+	PlayerRef->UI_Prompt = FString(TEXT("Press E to take jewels"));
 }
 
 void ADisplayCase::TakeJewels()
 {
+	const FTransform Transform = this->GetTransform();;
+
+	UFMODBlueprintStatics::PlayEventAtLocation(this, Pickup_Event,
+		Transform, true);
+
+	SM_Jewellery_1->SetHiddenInGame(true, false);
+	SM_Jewellery_2->SetHiddenInGame(true, false);
+	SM_Jewellery_3->SetHiddenInGame(true, false);
+
+	Jewels_Taken = true;
+	PlayerRef->bShowPrompt = false;
+	PlayerRef->Display_Case_Ref = nullptr;
 }

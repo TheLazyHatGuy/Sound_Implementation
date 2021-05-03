@@ -29,6 +29,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	bool Smashed;
+	bool Jewels_Taken;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		UStaticMeshComponent* SM_DisplayCase;
@@ -53,6 +54,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 		UFMODEvent* Smash_Event;
+
+	UPROPERTY(EditAnywhere)
+		UFMODEvent* Pickup_Event;
 	
 	UFUNCTION()
 		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
