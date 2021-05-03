@@ -96,6 +96,10 @@ void ADisplayCase::Smash()
 	
 	UFMODBlueprintStatics::PlayEventAtLocation(this, Smash_Event, 
 		Transform, true);
+
+
+	SM_DisplayCase_Glass->SetHiddenInGame(true, false);
+	SM_DisplayCase_Glass_Broken->SetHiddenInGame(false, false);
 }
 
 void ADisplayCase::TakeJewels()
