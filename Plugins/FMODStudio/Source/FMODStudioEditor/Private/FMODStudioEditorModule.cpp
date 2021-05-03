@@ -201,7 +201,7 @@ public:
     bool Tick(float DeltaTime);
 
     /** Build UE4 assets for FMOD Studio items */
-    void ProcessBanks();
+    void BuildAssets();
 
     /** Add extensions to menu */
     void RegisterHelpMenuEntries();
@@ -246,6 +246,7 @@ public:
     FDelegateHandle EndPIEDelegateHandle;
     FDelegateHandle PausePIEDelegateHandle;
     FDelegateHandle ResumePIEDelegateHandle;
+    FDelegateHandle HandleBanksReloadedDelegateHandle;
     FDelegateHandle FMODControlTrackEditorCreateTrackEditorHandle;
     FDelegateHandle FMODParamTrackEditorCreateTrackEditorHandle;
 
@@ -366,31 +367,23 @@ void FFMODStudioEditorModule::OnPostEngineInit()
     {
         // Build assets when asset registry has finished loading
         FAssetRegistryModule& AssetRegistry = FModuleManager::LoadModuleChecked<FAssetRegistryModule>(AssetRegistryConstants::ModuleName);
-        AssetRegistry.Get().OnFilesLoaded().AddLambda([this]() { ProcessBanks(); });
+        AssetRegistry.Get().OnFilesLoaded().AddLambda([this]() { BuildAssets(); });
     }
 
     // Bind to bank update notifier to reload banks when they change on disk
-    BankUpdateNotifier.BanksUpdatedEvent.AddRaw(this, &FFMODStudioEditorModule::ProcessBanks);
+    BankUpdateNotifier.BanksUpdatedEvent.AddRaw(this, &FFMODStudioEditorModule::ReloadBanks);
 
     // Register a callback to validate settings on startup
     IMainFrameModule& MainFrameModule = FModuleManager::LoadModuleChecked<IMainFrameModule>(TEXT("MainFrame"));
     MainFrameModule.OnMainFrameCreationFinished().AddRaw(this, &FFMODStudioEditorModule::OnMainFrameLoaded);
 }
 
-void FFMODStudioEditorModule::ProcessBanks()
+void FFMODStudioEditorModule::BuildAssets()
 {
     if (!IsRunningCommandlet())
     {
-        BankUpdateNotifier.EnableUpdate(false);
         AssetBuilder.ProcessBanks();
-        ReloadBanks();
-
-        const UFMODSettings &Settings = *GetDefault<UFMODSettings>();
-        BankUpdateNotifier.SetFilePath(Settings.GetFullBankPath());
-
-        BankUpdateNotifier.EnableUpdate(true);
-
-        IFMODStudioModule::Get().RefreshSettings();
+        HandleSettingsSaved();
     }
 }
 
@@ -1192,23 +1185,25 @@ void FFMODStudioEditorModule::ShutdownModule()
 
 bool FFMODStudioEditorModule::HandleSettingsSaved()
 {
-    ProcessBanks();
+    const UFMODSettings &Settings = *GetDefault<UFMODSettings>();
+    BankUpdateNotifier.SetFilePath(Settings.GetFullBankPath());
+    IFMODStudioModule::Get().RefreshSettings();
     return true;
 }
 
 void FFMODStudioEditorModule::ReloadBanks()
 {
-    IFMODStudioModule::Get().ReloadBanks();
-    BanksReloadedDelegate.Broadcast();
-
     // Show a reload notification
     TArray<FString> FailedBanks = IFMODStudioModule::Get().GetFailedBankLoads(EFMODSystemContext::Auditioning);
     FText Message;
     SNotificationItem::ECompletionState State;
     if (FailedBanks.Num() == 0)
     {
+        AssetBuilder.ProcessBanks();
+        IFMODStudioModule::Get().ReloadBanks();
         Message = LOCTEXT("FMODBanksReloaded", "Reloaded FMOD Banks\n");
         State = SNotificationItem::CS_Success;
+        BanksReloadedDelegate.Broadcast();
     }
     else
     {
