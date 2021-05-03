@@ -7,7 +7,7 @@
 #include "DisplayCase.generated.h"
 
 class UBoxComponent;
-class ASound_ImplementationGameMode;
+class ASound_ImplementationCharacter;
 
 UCLASS()
 class SOUND_IMPLEMENTATION_API ADisplayCase : public AActor
@@ -62,5 +62,6 @@ protected:
 	void TakeJewels();
 	
 private:	
-	ASound_ImplementationGameMode* GameMode;
+	UPROPERTY(VisibleAnywhere)
+		ASound_ImplementationCharacter* PlayerRef;
 };

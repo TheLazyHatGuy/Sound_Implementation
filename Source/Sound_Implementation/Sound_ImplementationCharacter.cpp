@@ -83,6 +83,9 @@ ASound_ImplementationCharacter::ASound_ImplementationCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	UI_Prompt = FString(TEXT("Change Me"));
+	bShowPrompt = false;
 }
 
 void ASound_ImplementationCharacter::BeginPlay()

@@ -13,12 +13,6 @@ class ASound_ImplementationGameMode : public AGameModeBase
 
 public:
 	ASound_ImplementationGameMode();
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		FString UI_Prompt;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		bool bShowPrompt;
 };
 
 
