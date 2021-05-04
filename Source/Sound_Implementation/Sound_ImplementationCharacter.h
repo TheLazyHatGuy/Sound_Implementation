@@ -113,6 +113,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=FMOD)
 	int FMOD_Footstep;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Cash;
+
 protected:
 	
 	/** Fires a projectile. */

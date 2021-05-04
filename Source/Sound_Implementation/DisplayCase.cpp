@@ -125,4 +125,5 @@ void ADisplayCase::TakeJewels()
 	Jewels_Taken = true;
 	PlayerRef->bShowPrompt = false;
 	PlayerRef->Display_Case_Ref = nullptr;
+	PlayerRef->Cash += 25000;
 }

@@ -92,6 +92,7 @@ ASound_ImplementationCharacter::ASound_ImplementationCharacter()
 	UI_Prompt = FString(TEXT("Change Me"));
 	bShowPrompt = false;
 	FMOD_Footstep = -1;
+	Cash = 0;
 }
 
 void ASound_ImplementationCharacter::BeginPlay()
@@ -120,9 +121,9 @@ void ASound_ImplementationCharacter::BeginPlay()
 		UI_Ref->AddToViewport();
 	}
 
-	Audio_Event_Instance = UFMODBlueprintStatics::PlayEventAttached(Intro_Dialogue_Event, RootComponent,
-		NAME_None, GetActorLocation(),EAttachLocation::SnapToTarget, 
-		false, true, false);
+	// Audio_Event_Instance = UFMODBlueprintStatics::PlayEventAttached(Intro_Dialogue_Event, RootComponent,
+	// 	NAME_None, GetActorLocation(),EAttachLocation::SnapToTarget, 
+	// 	false, true, false);
 }
 
 void ASound_ImplementationCharacter::Tick(float DeltaTime)
