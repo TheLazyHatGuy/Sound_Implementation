@@ -54,8 +54,8 @@ class ASound_ImplementationCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UMotionControllerComponent* L_MotionController;
 
-	UPROPERTY(EditAnywhere)
-		UFMODAudioComponent* Audio_Event_Instance;
+	UPROPERTY(EditAnywhere, Category=FMOD)
+	UFMODAudioComponent* Audio_Event_Instance;
 
 public:
 	ASound_ImplementationCharacter();
@@ -94,21 +94,24 @@ public:
 	uint8 bUsingMotionControllers : 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		FString UI_Prompt;
+			FString UI_Prompt;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		bool bShowPrompt;
+	bool bShowPrompt;
 	
 	UPROPERTY(EditAnywhere, Category = "UI HUD")
-		TSubclassOf<UUserWidget> UI;
+	TSubclassOf<UUserWidget> UI;
 
 	UUserWidget* UI_Ref;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		ADisplayCase* Display_Case_Ref;
+	ADisplayCase* Display_Case_Ref;
 
-	UPROPERTY(EditAnywhere)
-		UFMODEvent* Intro_Dialogue_Event;
+	UPROPERTY(EditAnywhere, Category=FMOD)
+	UFMODEvent* Intro_Dialogue_Event;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=FMOD)
+	int FMOD_Footstep;
 
 protected:
 	

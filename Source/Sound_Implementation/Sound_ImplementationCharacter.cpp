@@ -91,6 +91,7 @@ ASound_ImplementationCharacter::ASound_ImplementationCharacter()
 
 	UI_Prompt = FString(TEXT("Change Me"));
 	bShowPrompt = false;
+	FMOD_Footstep = -1;
 }
 
 void ASound_ImplementationCharacter::BeginPlay()
