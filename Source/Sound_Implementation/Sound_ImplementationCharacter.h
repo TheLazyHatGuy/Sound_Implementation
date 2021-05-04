@@ -14,6 +14,8 @@ class UMotionControllerComponent;
 class UAnimMontage;
 class USoundBase;
 class ADisplayCase;
+class UFMODEvent;
+class UFMODAudioComponent;
 
 UCLASS(config=Game)
 class ASound_ImplementationCharacter : public ACharacter
@@ -52,11 +54,15 @@ class ASound_ImplementationCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UMotionControllerComponent* L_MotionController;
 
+	UPROPERTY(EditAnywhere)
+		UFMODAudioComponent* Audio_Event_Instance;
+
 public:
 	ASound_ImplementationCharacter();
 
 protected:
-	virtual void BeginPlay();
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 
 public:
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
@@ -100,6 +106,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		ADisplayCase* Display_Case_Ref;
+
+	UPROPERTY(EditAnywhere)
+		UFMODEvent* Intro_Dialogue_Event;
+
+	UPROPERTY(EditAnywhere)
+		USceneComponent* Audio;
 
 protected:
 	

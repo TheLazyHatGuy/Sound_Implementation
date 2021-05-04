@@ -13,6 +13,8 @@
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 #include "Blueprint/UserWidget.h"
+#include "FMODEvent.h"
+#include "FMODBlueprintStatics.h"
 
 #include "DisplayCase.h"
 
@@ -89,6 +91,8 @@ ASound_ImplementationCharacter::ASound_ImplementationCharacter()
 
 	UI_Prompt = FString(TEXT("Change Me"));
 	bShowPrompt = false;
+
+	Audio = CreateDefaultSubobject<USceneComponent>(TEXT("Audio Attach Point"));
 }
 
 void ASound_ImplementationCharacter::BeginPlay()
@@ -115,6 +119,21 @@ void ASound_ImplementationCharacter::BeginPlay()
 	{
 		UI_Ref = CreateWidget(GetWorld(), UI);
 		UI_Ref->AddToViewport();
+	}
+
+	Audio_Event_Instance = UFMODBlueprintStatics::PlayEventAttached(Intro_Dialogue_Event, Audio,
+		TEXT("Audio Attach Point"), this->GetActorLocation(),
+		EAttachLocation::SnapToTarget, 
+		false, true, false);
+}
+
+void ASound_ImplementationCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (Audio_Event_Instance != nullptr)
+	{
+		Audio_Event_Instance->SetWorldTransform(this->GetTransform());
 	}
 }
 
