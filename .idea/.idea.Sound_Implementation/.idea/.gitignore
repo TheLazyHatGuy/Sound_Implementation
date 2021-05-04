@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/.idea.Sound_Implementation.iml
+/contentModel.xml
+# Datasource local storage ignored files
+/../../../../../../../:\GameDev\UE4-26\Sound_Implementation\.idea\.idea.Sound_Implementation\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
