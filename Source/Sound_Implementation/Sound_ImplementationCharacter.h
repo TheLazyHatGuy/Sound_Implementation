@@ -110,9 +110,6 @@ public:
 	UPROPERTY(EditAnywhere)
 		UFMODEvent* Intro_Dialogue_Event;
 
-	UPROPERTY(EditAnywhere)
-		USceneComponent* Audio;
-
 protected:
 	
 	/** Fires a projectile. */
