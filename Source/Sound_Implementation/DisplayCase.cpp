@@ -93,16 +93,10 @@ void ADisplayCase::Smash()
 		return;
 	}
 	
-	
-	const FVector Translation = FVector(0.0f, 0.0f, 0.0f);
-	const FVector Scale = FVector(1.0f, 1.0f, 1.0f);
-	const FQuat Rotation = FQuat(0.0f, 0.0f, 0.0f, 0.0f);
-	// const FTransform Transform = FTransform(Rotation, Translation, Scale);
 	const FTransform Transform = this->GetTransform();;
 	
 	UFMODBlueprintStatics::PlayEventAtLocation(this, Smash_Event, 
 		Transform, true);
-
 
 	SM_DisplayCase_Glass->SetHiddenInGame(true, false);
 	SM_DisplayCase_Glass_Broken->SetHiddenInGame(false, false);
