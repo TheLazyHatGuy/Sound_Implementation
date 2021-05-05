@@ -17,6 +17,7 @@
 #include "FMODBlueprintStatics.h"
 
 #include "DisplayCase.h"
+#include "AlarmButton.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -335,20 +336,16 @@ bool ASound_ImplementationCharacter::EnableTouchscreenMovement(class UInputCompo
 void ASound_ImplementationCharacter::Interact()
 {
 	if (Display_Case_Ref != nullptr)
-	{
 		Display_Case_Ref->Smash();
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Display case null"));
-	}
+	else if (Alarm_Button_Ref != nullptr)
+		Alarm_Button_Ref->PressButton();
 }
 
-void ASound_ImplementationCharacter::PlayAlarmTripDialogue()
+void ASound_ImplementationCharacter::PlayFMODEvent(UFMODEvent* Event)
 {
 	if (Audio_Event_Instance->IsPlaying())
 		Audio_Event_Instance->Stop();
 
-	Audio_Event_Instance->SetEvent(Alarm_Dialogue_Event);
+	Audio_Event_Instance->SetEvent(Event);
 	Audio_Event_Instance->Play();
 }

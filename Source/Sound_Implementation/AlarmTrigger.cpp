@@ -47,7 +47,7 @@ void AAlarmTrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* 
 		
 		bIsTriggered = true;
 
-		PlayerRef->PlayAlarmTripDialogue();
+		PlayerRef->PlayFMODEvent(PlayerRef->Alarm_Dialogue_Event);
 		
 		UFMODBlueprintStatics::PlayEventAtLocation(this, Alarm_Event, 
 			GetTransform(), true);

@@ -14,6 +14,7 @@ class UMotionControllerComponent;
 class UAnimMontage;
 class USoundBase;
 class ADisplayCase;
+class AAlarmButton;
 class UFMODEvent;
 class UFMODAudioComponent;
 
@@ -107,11 +108,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	ADisplayCase* Display_Case_Ref;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	AAlarmButton* Alarm_Button_Ref;
+
 	UPROPERTY(EditAnywhere, Category = FMOD)
 	UFMODEvent* Intro_Dialogue_Event;
 
 	UPROPERTY(EditAnywhere, Category = FMOD)
 	UFMODEvent* Alarm_Dialogue_Event;
+
+	UPROPERTY(EditAnywhere, Category = FMOD)
+	UFMODEvent* Alarm_Disabled_Dialogue_Event;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=FMOD)
 	int FMOD_Footstep;
@@ -119,7 +126,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int Cash;
 
-	void PlayAlarmTripDialogue();
+	void PlayFMODEvent(UFMODEvent* Event);
 
 protected:
 	
