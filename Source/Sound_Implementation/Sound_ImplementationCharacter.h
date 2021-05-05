@@ -107,7 +107,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	ADisplayCase* Display_Case_Ref;
 
-	UPROPERTY(EditAnywhere, Category=FMOD)
+	UPROPERTY(EditAnywhere, Category = FMOD)
 	UFMODEvent* Intro_Dialogue_Event;
 
 	UPROPERTY(EditAnywhere, Category = FMOD)
