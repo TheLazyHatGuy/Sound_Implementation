@@ -124,7 +124,7 @@ void ASound_ImplementationCharacter::BeginPlay()
 
 	Audio_Event_Instance = UFMODBlueprintStatics::PlayEventAttached(Intro_Dialogue_Event, RootComponent,
 		NAME_None, GetActorLocation(),EAttachLocation::SnapToTarget, 
-		false, false, false);
+		false, true, false);
 }
 
 void ASound_ImplementationCharacter::Tick(float DeltaTime)
