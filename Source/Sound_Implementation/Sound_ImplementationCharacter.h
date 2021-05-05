@@ -110,11 +110,16 @@ public:
 	UPROPERTY(EditAnywhere, Category=FMOD)
 	UFMODEvent* Intro_Dialogue_Event;
 
+	UPROPERTY(EditAnywhere, Category = FMOD)
+	UFMODEvent* Alarm_Dialogue_Event;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=FMOD)
 	int FMOD_Footstep;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int Cash;
+
+	void PlayAlarmTripDialogue();
 
 protected:
 	
@@ -156,7 +161,7 @@ protected:
 	TouchData	TouchItem;
 
 	void Interact();
-	
+
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;

@@ -121,9 +121,9 @@ void ASound_ImplementationCharacter::BeginPlay()
 		UI_Ref->AddToViewport();
 	}
 
-	// Audio_Event_Instance = UFMODBlueprintStatics::PlayEventAttached(Intro_Dialogue_Event, RootComponent,
-	// 	NAME_None, GetActorLocation(),EAttachLocation::SnapToTarget, 
-	// 	false, true, false);
+	Audio_Event_Instance = UFMODBlueprintStatics::PlayEventAttached(Intro_Dialogue_Event, RootComponent,
+		NAME_None, GetActorLocation(),EAttachLocation::SnapToTarget, 
+		false, false, false);
 }
 
 void ASound_ImplementationCharacter::Tick(float DeltaTime)
@@ -342,4 +342,13 @@ void ASound_ImplementationCharacter::Interact()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Display case null"));
 	}
+}
+
+void ASound_ImplementationCharacter::PlayAlarmTripDialogue()
+{
+	if (Audio_Event_Instance->IsPlaying())
+		Audio_Event_Instance->Stop();
+
+	Audio_Event_Instance->SetEvent(Alarm_Dialogue_Event);
+	Audio_Event_Instance->Play();
 }
