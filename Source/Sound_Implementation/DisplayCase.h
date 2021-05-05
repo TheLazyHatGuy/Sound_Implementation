@@ -52,10 +52,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBoxComponent* Box_Collision;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = FMOD)
 	UFMODEvent* Smash_Event;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = FMOD)
 	UFMODEvent* Pickup_Event;
 	
 	UFUNCTION()
