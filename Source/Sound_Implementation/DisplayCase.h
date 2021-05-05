@@ -32,40 +32,40 @@ protected:
 	bool Jewels_Taken;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UStaticMeshComponent* SM_DisplayCase;
+	UStaticMeshComponent* SM_DisplayCase;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UStaticMeshComponent* SM_DisplayCase_Glass;
+	UStaticMeshComponent* SM_DisplayCase_Glass;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UStaticMeshComponent* SM_DisplayCase_Glass_Broken;
+	UStaticMeshComponent* SM_DisplayCase_Glass_Broken;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UStaticMeshComponent* SM_Jewellery_1;
+	UStaticMeshComponent* SM_Jewellery_1;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UStaticMeshComponent* SM_Jewellery_2;
+	UStaticMeshComponent* SM_Jewellery_2;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UStaticMeshComponent* SM_Jewellery_3;
+	UStaticMeshComponent* SM_Jewellery_3;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UBoxComponent* Box_Collision;
+	UBoxComponent* Box_Collision;
 
 	UPROPERTY(EditAnywhere)
-		UFMODEvent* Smash_Event;
+	UFMODEvent* Smash_Event;
 
 	UPROPERTY(EditAnywhere)
-		UFMODEvent* Pickup_Event;
+	UFMODEvent* Pickup_Event;
 	
 	UFUNCTION()
-		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
-			class UPrimitiveComponent* OtherComp, int32 OtherBodyIndexType, bool bFromSweep,
-			const FHitResult& SweepResult);
+	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
+		class UPrimitiveComponent* OtherComp, int32 OtherBodyIndexType, bool bFromSweep,
+		const FHitResult& SweepResult);
 
 	UFUNCTION()
-		void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
-			class UPrimitiveComponent* OtherComp, int32 OtherBodyIndexType);
+	void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
+		class UPrimitiveComponent* OtherComp, int32 OtherBodyIndexType);
 
 	void TakeJewels();
 	
