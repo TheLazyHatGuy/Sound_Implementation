@@ -94,10 +94,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint8 bUsingMotionControllers : 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-			FString UI_Prompt;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString UI_Prompt;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bShowPrompt;
 	
 	UPROPERTY(EditAnywhere, Category = "UI HUD")
